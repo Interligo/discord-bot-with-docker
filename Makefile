@@ -13,10 +13,10 @@ push_image:
 	docker push $(IMAGE_NAME)
 
 push_heroku:
-	heroku container:push web -a $(HEROKU_APP_NAME)
+	heroku container:push worker -a $(HEROKU_APP_NAME)
 
 release_heroku:
-	heroku container:release web -a $(HEROKU_APP_NAME)
+	heroku container:release worker -a $(HEROKU_APP_NAME)
 
 logs_heroku:
 	heroku logs --tail -a $(HEROKU_APP_NAME)
