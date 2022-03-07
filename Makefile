@@ -18,7 +18,7 @@ push_heroku:
 release_heroku:
 	heroku container:release -a $(HEROKU_APP_NAME) web
 
-logs:
+logs_heroku:
 	heroku logs --tail -a $(HEROKU_APP_NAME)
 
 run:
