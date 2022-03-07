@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 LABEL maintainer="Interligo@yandex.ru"
 
 ENV PYTHONDONTWRITEBYTECODE=1
