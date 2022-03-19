@@ -28,11 +28,11 @@
 
 This is a project for **practiсing** in work with images and deeper Docker learning. It is rather funny than useful, but this bot can:
 
-• moderate a chat, communicate a little, issue roles;
-• respond to commands with “!” prefix;
-• conduct duels between server members, mute a loser and unmute after some period of time;
-• parse interesting pictures with beautiful girls and post them on command;
-• do some dirty and unfair things by the administrator’s command; members don’t like it, but who cares :)
+- moderate a chat, communicate a little, issue roles;
+- respond to commands with “!” prefix;
+- conduct duels between server members, mute a loser and unmute after some period of time;
+- parse interesting pictures with beautiful girls and post them on command;
+- do some dirty and unfair things by the administrator’s command; members don’t like it, but who cares :)
 
 The bot is wrapped in a docker image and the container is deployed on Heroku. Yes, Heroku again. And this is definitely not because I am a greedy person who cannot afford high-quality paid AWS. I just love this service, and it's also free :)
 
