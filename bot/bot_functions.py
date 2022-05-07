@@ -5,13 +5,13 @@ import random
 from fuzzywuzzy import process
 
 import image_parser as parser
-import bot_words_storage as st
+import bot_storage as st
 
 
 def word_lists_counter() -> int:
     """Function to get number of word lists from file 'bot_words_storage.py'."""
     lists_counter = 0
-    storage_path = os.path.join(os.path.dirname(__file__), 'bot_words_storage.py')
+    storage_path = os.path.join(os.path.dirname(__file__), 'bot_storage.py')
 
     if os.path.exists(storage_path):
         with open(storage_path) as file:
@@ -42,7 +42,7 @@ def discord_message_analysis(message: discord.MessageType) -> str:
         for iteration in range(word_lists_number):
             if result is None:
                 found_word, rating = process.extractOne(word, referring_to_word_lists[iteration])
-                result = callback_from_word_lists[iteration] if rating > 85 else None
+                result = callback_from_word_lists[iteration] if rating > 95 else None
 
     return result
 
@@ -58,17 +58,22 @@ def bad_word_finder(message: discord.MessageType) -> str:
     for word in message_content_list:
         found_word, rating = process.extractOne(word, st.bad_words_list)
         if result is None:
-            result = found_word if rating > 75 else None
+            result = found_word if rating > 95 else None
 
     return result
+
+
+def select_answer() -> str:
+    """Function to select random answer."""
+    index = random.randint(0, len(st.ANSWERS) - 1)
+    return st.ANSWERS[index]
 
 
 def image_selection() -> str:
     """Function to randomize image choice."""
     start_of_link = 'http://babenki.info/'
     image_links_list = parser.get_images()
-    image_count = len(image_links_list)
-    choice = random.randint(0, image_count)
+    choice = random.randint(0, len(image_links_list)-1)
 
     link = start_of_link + image_links_list[choice]
 

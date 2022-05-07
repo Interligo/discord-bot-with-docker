@@ -1,50 +1,38 @@
 import os
 import requests
-from bs4 import BeautifulSoup as bs
 
 from load_environment import load_environment
 
 
 load_environment()
 
-DESTINY_API = os.getenv('DESTINY_API_KEY')
-HEADERS = {"X-API-Key": DESTINY_API}
 
+class XurChecker:
 
-def is_xur_here() -> bool:
-    """Function checking Xur and returns True/False."""
-    xur_url = 'https://paracausal.science/xur/current.json'
+    def __init__(self):
+        self.message_is_sent = False
+        self.url = 'https://paracausal.science/xur/current.json'
+        self.destiny_api_key = os.getenv('DESTINY_API_KEY')
+        self.headers = {
+            'Accept': '*/*',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                          'Chrome/88.0.4324.190 Safari/537.36'
+        }
 
-    response = requests.get(xur_url, headers=HEADERS)
-    data = response.json()
+    def is_xur_here(self) -> bool:
+        """Function checking Xur position and returns True/False."""
+        response = requests.get(self.url, headers=self.headers)
+        data = response.json()
+        return bool(data)
 
-    search_result = False if data is None else True
+    def get_xur_location(self) -> str:
+        """Function returns Xur's location from json."""
+        response = requests.get(self.url, headers=self.headers)
+        data = response.json()
 
-    return search_result
-
-
-def get_xur_location() -> str:
-    """Function returns Xur's location from json."""
-    xur_url = 'https://paracausal.science/xur/current.json'
-
-    response = requests.get(xur_url, headers=HEADERS)
-    data = response.json()
-
-    if data is None:
-        return 'Тайные люди Икоры Рей сообщают, что Посланника Девяти нет в Солнечной системе.'
-    else:
-        planet = data['destinationName']
-        location = data['bubbleName']
-        return f'Тайные люди Икоры Рей сообщают, что Зур был замечен: {planet}, {location}.'
-
-
-def get_xur_location_from_url() -> str:
-    """Function returns Xur's location from url."""
-    xur_url = 'https://whereisxur.com/'
-
-    session = requests.Session()
-    response = session.get(xur_url)
-    soup = bs(response.content, 'html.parser')
-    xur_place = soup.find('h4')
-
-    return xur_place.text
+        if data is None:
+            return 'Тайные люди Икоры Рей сообщают, что Посланника Девяти нет в Солнечной системе.'
+        else:
+            planet = data['destinationName']
+            location = data['bubbleName']
+            return f'Тайные люди Икоры Рей сообщают, что Зур был замечен в локации: {planet}, {location}.'

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup as bs
 URL = 'http://babenki.info/siski/7487-krasivaya-golaya-grud-78-foto.html'
 
 
-def get_images():
+def get_images() -> []:
     """Function parsing shared link to find photos."""
     session = requests.Session()
     response = session.get(URL)
@@ -30,8 +30,5 @@ def get_images():
                 image_list.append(link)
             except TypeError:
                 pass
-
-    else:
-        return 'Сайт не отвечает на запросы.'
 
     return image_list
